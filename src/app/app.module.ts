@@ -11,6 +11,7 @@ import {AgGridModule} from "ag-grid-angular/main";
 import {MatDialogModule} from '@angular/material/dialog';
 import { DComponent, DialogOverviewExampleDialog } from './d/d.component';
 import {RouterModule} from '@angular/router';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {RouterModule} from '@angular/router';
     BlotterComponent,
     DComponent,
     DialogOverviewExampleDialog,
+    AddressComponent
    
   
   ],
