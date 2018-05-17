@@ -2,36 +2,106 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-infinitescroll',
-  styles: [
-    `.main-panel {
-            height: 100px;
-            overflow-y: scroll;
-        }`
-  ],
+  styles: [`
+    .search-results {
+      height: 100%;
+      // overflow: scroll;
+    }
+    .title {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(0,0,0,.5);
+      color: white;
+      width: 100%;
+    }
+    .title small {
+      color: #eaeaea;
+    }
+  `],
   template: `
-        <div class="main-panel">
-            <div infiniteScroll
-                [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="50"
-                [infiniteScrollContainer]="selector"
-                [fromRoot]="true"
-                (scrolled)="onScrollUp()">
-            </div>
-        </div>
-    `
+    <h1 class="title well">
+      {{ title }} 
+      <section>
+      <small>items: {{sum}}, now triggering scroll: {{direction}}</small>
+      </section>
+    </h1>
+    <div class="search-results"
+         data-infinite-scroll
+         debounce
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollUpDistance]="scrollUpDistance"
+         [infiniteScrollThrottle]="throttle"
+         (scrolled)="onScrollDown()"
+         (scrolledUp)="onUp()">
+      <p *ngFor="let i of array">
+        {{ i }}
+      </p>
+    </div>
+  `
 })
 export class InfinitescrollComponent implements OnInit {
 
-  constructor() { }
+  
 
   ngOnInit() {
   }
-  onScrollDown() {
-    console.log("scrolled down!!");
-  }
+ 
  
   onScrollUp() {
     console.log("scrolled up!!");
+  }
+
+  array = [];
+  sum = 100;
+  throttle = 300;
+  scrollDistance = 1;
+  scrollUpDistance = 2;
+  direction = '';
+ // title = 'This is Angular InfiniteScroll v' + systemConfig.map['ngx-infinite-scroll'].split('@')[1];
+
+  constructor() {
+    this.appendItems(0, this.sum);
+    //debugger
+    //console.log(systemConfig);
+  }
+  
+  addItems(startIndex, endIndex, _method) {
+    for (let i = 0; i < this.sum; ++i) {
+      this.array[_method]([i, ' ', this.generateWord()].join(''));
+    }
+  }
+  
+  appendItems(startIndex, endIndex) {
+    this.addItems(startIndex, endIndex, 'push');
+  }
+  
+  prependItems(startIndex, endIndex) {
+    this.addItems(startIndex, endIndex, 'unshift');
+  }
+
+  onScrollDown (ev) {
+    console.log('scrolled down!!', ev);
+
+    // add another 20 items
+    const start = this.sum;
+    this.sum += 20;
+    this.appendItems(start, this.sum);
+    
+    this.direction = 'down'
+  }
+  
+  onUp(ev) {
+    console.log('scrolled up!', ev);
+    const start = this.sum;
+    this.sum += 20;
+    this.prependItems(start, this.sum);
+  
+    this.direction = 'up';
+  }
+  //ELEMENT_DATA  = ELEMENT_DATA;
+  generateWord() {
+    //return ELEMENT_DATA.position;
   }
 }
 export interface Element {
