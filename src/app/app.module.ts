@@ -21,6 +21,9 @@ import { TsetComponent } from './tset/tset.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { DtpaginationComponent } from './dtpagination/dtpagination.component';
+import { InfinitescrollComponent } from './infinitescroll/infinitescroll.component';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +36,8 @@ import {MatSortModule} from '@angular/material/sort';
     PostComponent,
     TesComponent,
     TsetComponent,
+    DtpaginationComponent,
+    InfinitescrollComponent,
   
     
    
@@ -41,6 +46,7 @@ import {MatSortModule} from '@angular/material/sort';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    InfiniteScrollModule ,
     ReactiveFormsModule,
     MatDialogModule,
     MatSortModule,
@@ -53,10 +59,10 @@ import {MatSortModule} from '@angular/material/sort';
         path:"dealentry",
         component:DealEntryComponent
       },
-      // {
-      //   path:"",
-      //   component:AppComponent
-      // },
+       {
+         path:"InfinitescrollComponent",
+         component:InfinitescrollComponent
+       },
      ],{ enableTracing: true }),RouterModule.forChild([{
       path: 'eal',
       component: DealEntryComponent,
