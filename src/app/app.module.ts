@@ -12,7 +12,15 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DComponent, DialogOverviewExampleDialog } from './d/d.component';
 import {RouterModule} from '@angular/router';
 import { AddressComponent } from './address/address.component';
-
+import { NumberinputDirective } from './numberinput.directive';
+import { PostComponent } from './post/post.component';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { TesComponent } from './tes/tes.component';
+import { TsetComponent } from './tset/tset.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +28,13 @@ import { AddressComponent } from './address/address.component';
     BlotterComponent,
     DComponent,
     DialogOverviewExampleDialog,
-    AddressComponent
+    AddressComponent,
+    NumberinputDirective,
+    PostComponent,
+    TesComponent,
+    TsetComponent,
+  
+    
    
   
   ],
@@ -29,16 +43,30 @@ import { AddressComponent } from './address/address.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {
         path:"dealentry",
         component:DealEntryComponent
       },
-      {
-      path:"",
-      component:BlotterComponent
-    }],{ enableTracing: true }),
+      // {
+      //   path:"",
+      //   component:AppComponent
+      // },
+     ],{ enableTracing: true }),RouterModule.forChild([{
+      path: 'eal',
+      component: DealEntryComponent,
+    
+      children: [
+        
+        {path: 'tracks', component: TsetComponent},
+        {path: 'albums', component: BlotterComponent},
+      ]
+    }]),
     AgGridModule.withComponents(
       [])
   ],

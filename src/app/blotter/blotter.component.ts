@@ -11,7 +11,7 @@ import { Customer } from './moal';
 export class BlotterComponent implements OnInit {
   ngOnInit(): void {
     this.myForm = this._fb.group({
-      name: ['', [Validators.required, Validators.minLength(5)]],
+      name: ['', [Validators.required/*, Validators.pattern('^[a-zA-Z \-\']+')*/]],
       addresses: this._fb.array([])
   });
   
